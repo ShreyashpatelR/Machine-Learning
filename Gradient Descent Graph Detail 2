@@ -1,0 +1,92 @@
+# both
+#Sir PPT 
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def gradient_descent(x,y):
+    continue1 = False
+    m_curr  = 0 
+    b_curr = 0
+    iterations = 1
+    max_iterations = 3000
+    ep = 0.01
+    alpha=0.03
+    md_data = []
+    m_curr_data = []
+    bd_data = [] 
+    b_curr_data = []
+    Last_md_data =[]
+    Last_m_curr_data =[]
+    Last_bd_data =[]
+    Last_b_curr_data =[]
+    
+    
+    while not continue1:
+        y_predicted = m_curr * x + b_curr
+        md = -(2)*sum(x*(y-y_predicted))
+        bd = -(2)*sum(y-y_predicted)
+        stepsizeM = (md * alpha)/(iterations**(0.32))  ####0.32 optimal solution
+        stepsizeB = (bd * alpha)/(iterations**(0.32))  # math.sqrt(iterations)
+        
+        if iterations%1 == 0:
+           md_data.append(abs(md))
+           m_curr_data.append(m_curr)       
+           bd_data.append(abs(bd))
+           b_curr_data.append(b_curr)
+           
+           Last_b_curr_data = b_curr
+           Last_bd_data =abs( bd)
+           Last_m_curr_data = m_curr
+           Last_md_data = abs(md)
+        
+        
+        m_curr = m_curr - stepsizeM
+        b_curr = b_curr - stepsizeB 
+         
+        if  abs(md) <= ep and abs(bd) <= ep:
+            
+            print("Complete !!!!!!")
+            #learning_rate = -0.1
+            continue1 = True
+        
+        if iterations%1 == 0 and iterations<200:
+            plt.scatter(m_curr_data,md_data,color='pink')
+            plt.scatter(Last_m_curr_data,Last_md_data,color = 'blue')
+            plt.show()
+            #plt.scatter(b_curr_data,bd_data,color='yellow')
+            #plt.scatter(Last_b_curr_data,Last_bd_data,color='green')
+            #plt.show()
+            
+        iterations +=1
+        
+        if iterations == max_iterations:
+            print(" Max Iteration !!")
+            continue1 = True
+        
+            
+           
+                
+    print ("m {}, b {} iteration {} ".format(m_curr,b_curr,iterations))
+    plt.scatter(x,y)
+    Yp = m_curr*x + b_curr
+    plt.plot(x,Yp,color='red')
+    plt.show() 
+    
+    print(" Slope Data ")
+    plt.scatter(m_curr_data,md_data,color='pink')
+    #plt.scatter(Last_m_curr_data,Last_md_data,color = 'blue')
+    plt.show()
+    
+    print("Intercept Data ")
+    plt.scatter(b_curr_data,bd_data,color='yellow')
+    #plt.scatter(Last_b_curr_data,Last_bd_data,color='green')
+    plt.show()
+    
+    Error = y-Yp
+    SumError2 = Error**2
+    print("RSS after Best fit is ")
+    print(np.sum(SumError2))
+x =np.array([1,2,4,6,8])#np.array([0.5,2.3,2.9]) #np.array([1,2,4,6,8])
+y=np.array([2,5,6,9,11])#np.array([1.4,1.9,3.2]) #
+gradient_descent(x,y)
