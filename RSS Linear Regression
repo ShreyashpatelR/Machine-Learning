@@ -1,0 +1,50 @@
+#RSS
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+#x = np.array([2,3,5,13,8,16,11,1,9]) 
+#y = np.array([15,28,42,64,50,90,58,8,54])
+#####
+# from sklearn.datasets import load_boston
+# boston_dataset = load_boston()
+# boston= pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston.head()
+# boston['MEDV']=boston_dataset.target
+# boston.head()
+
+# x= boston['RM']
+# y = boston['MEDV']
+
+#####
+x = np.array([1,2,4,6,8])
+y= np.array([2,5,6,9,11])
+n = len(x)  # ----------------
+plt.scatter(x,y)
+XY = x * y
+SumXY = np.sum(XY)
+print(SumXY)
+X2 = x*x
+SumX2 = np.sum(X2) # sum of X*X
+print(SumX2)
+SumX = np.sum(x)
+print(SumX)
+SumY = np.sum(y)
+print(SumY)
+SumXSumX =SumX*SumX 
+print(SumXSumX)
+SumXSumY = SumX * SumY
+print(SumXSumY)
+m = (SumXY - (SumXSumY/n))/(SumX2 - (SumXSumX/n)) 
+b = (SumY - m*SumX)/n
+print('m')
+print(m)
+print('b')
+print(b)
+Yp = m*x + b
+plt.plot(x,Yp,color='red')
+#plt.scatter(x,Yp,color='red')
+plt.show()
+Error = y-Yp
+SumError2 = Error**2
+print("Error  is ")
+print(np.sum(SumError2))
