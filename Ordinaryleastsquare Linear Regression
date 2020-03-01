@@ -1,0 +1,45 @@
+#https://towardsdatascience.com/linear-regression-simplified-ordinary-least-square-vs-gradient-descent-48145de2cf76
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+#x = np.array([2,3,5,13,8,16,11,1,9]) 
+#y = np.array([15,28,42,64,50,90,58,8,54])
+x = np.array([1,2,4,6,8])
+y= np.array([2,5,6,9,11])
+
+####
+# from sklearn.datasets import load_boston
+# boston_dataset = load_boston()
+# boston= pd.DataFrame(boston_dataset.data, columns=boston_dataset.feature_names)
+# boston.head()
+# boston['MEDV']=boston_dataset.target
+# boston.head()
+
+# x= boston['RM']
+# y = boston['MEDV']
+
+####
+plt.scatter(x,y)
+MeanX = np.mean(x)
+X1 = x - MeanX
+MeanY = np.mean(y)
+Y1 = y - MeanY
+X1Y1 = X1 * Y1
+X2 = X1*X1
+SumX1Y1 = np.sum(X1Y1)
+SumX2 = np.sum(X2)
+m = SumX1Y1 / SumX2
+b = MeanY - m * MeanX
+print('m')
+print(m)
+print('b')
+print(b)
+Yp = m*x + b
+plt.plot(x,Yp,color='red')
+#plt.scatter(x,Yp,color='red')
+plt.show()
+
+Error = y-Yp
+SumError2 = Error**2
+print("Error  is ")
+print(np.sum(SumError2))
